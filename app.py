@@ -113,5 +113,5 @@ def logout():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    # 生产环境配置
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)), debug=False) 
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port) 
