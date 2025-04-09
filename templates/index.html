@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>我的密码</h2>
+    </div>
+    <div class="col text-end">
+        <a href="{{ url_for('add_password') }}" class="btn btn-primary">添加新密码</a>
+    </div>
+</div>
+
+<div class="row">
+    {% for password in passwords %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ password.title }}</h5>
+                <p class="card-text">
+                    <strong>用户名：</strong> {{ password.username }}<br>
+                    <strong>密码：</strong> 
+                    <span class="password-field" style="filter: blur(4px);" 
+                          onclick="this.style.filter='none'">{{ password.password }}</span><br>
+                    {% if password.url %}
+                    <strong>网址：</strong> <a href="{{ password.url }}" target="_blank">{{ password.url }}</a><br>
+                    {% endif %}
+                    {% if password.notes %}
+                    <strong>备注：</strong> {{ password.notes }}<br>
+                    {% endif %}
+                    <small class="text-muted">创建时间：{{ password.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col">
+        <div class="alert alert-info">
+            还没有保存任何密码。点击"添加新密码"开始使用。
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 
